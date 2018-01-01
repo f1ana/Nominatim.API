@@ -4,29 +4,44 @@ using Nominatim.API.Models;
 using Nominatim.API.Web;
 
 namespace Nominatim.API.Geocoders {
+    /// <summary>
+    /// Class to enable forward geocoding (e.g.  address to latitude and longitude)
+    /// </summary>
     public class ForwardGeocoder : GeocoderBase {
-
-        public ForwardGeocodeResponse[] Geocode(ForwardGeocodeRequest req) {
-            return WebInterface.GetRequest<ForwardGeocodeResponse[]>(url, buildQueryString(req)).Result;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
+        public ForwardGeocoder(string URL = null) {
+            url = URL ?? @"http://nominatim.openstreetmap.org/search";
         }
 
-        protected override Dictionary<string, string> buildQueryString(ForwardGeocodeRequest r) {
+        /// <summary>
+        /// Attempt to get coordinates for a specified query or address.
+        /// </summary>
+        /// <param name="req">Geocode request object</param>
+        /// <returns>Array of geocode responses</returns>
+        public GeocodeResponse[] Geocode(ForwardGeocodeRequest req) {
+            return WebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).Result;
+        }
+
+        private Dictionary<string, string> buildQueryString(ForwardGeocodeRequest r) {
             var c = new Dictionary<string, string>();
 
             // We only support JSON
-            c.AddStringIfHasValue("format", format);
-            c.AddStringIfHasValue("key", key);
+            c.AddIfSet("format", format);
+            c.AddIfSet("key", key);
             
             if (r.queryString.hasValue()) {
                 c.Add("q", r.queryString);
             }
             else {
-                c.AddStringIfHasValue("street", r.StreetAddress);
-                c.AddStringIfHasValue("city", r.City);
-                c.AddStringIfHasValue("county", r.County);
-                c.AddStringIfHasValue("state", r.State);
-                c.AddStringIfHasValue("country", r.Country);
-                c.AddStringIfHasValue("postalcode", r.PostalCode);
+                c.AddIfSet("street", r.StreetAddress);
+                c.AddIfSet("city", r.City);
+                c.AddIfSet("county", r.County);
+                c.AddIfSet("state", r.State);
+                c.AddIfSet("country", r.Country);
+                c.AddIfSet("postalcode", r.PostalCode);
             }
 
             if (r.ViewBox != null) {
@@ -34,19 +49,19 @@ namespace Nominatim.API.Geocoders {
                 c.Add("viewbox", $"{v.minLatitude},{v.minLongitude},{v.maxLatitude},{v.maxLongitude}");
             }
             
-            c.AddBoolIfSet("bounded", r.ViewboxBoundedResults);
-            c.AddBoolIfSet("addressdetails", r.BreakdownAddressElements);
-            c.AddIntIfSet("limit", r.LimitResults);
-            c.AddStringIfHasValue("accept-language", r.PreferredLanguages);
-            c.AddStringIfHasValue("countrycodes", r.CountryCodeSearch);
-            c.AddBoolIfSet("namedetails", r.ShowAlternativeNames);
-            c.AddBoolIfSet("dedupe", r.DedupeResults);
+            c.AddIfSet("bounded", r.ViewboxBoundedResults);
+            c.AddIfSet("addressdetails", r.BreakdownAddressElements);
+            c.AddIfSet("limit", r.LimitResults);
+            c.AddIfSet("accept-language", r.PreferredLanguages);
+            c.AddIfSet("countrycodes", r.CountryCodeSearch);
+            c.AddIfSet("namedetails", r.ShowAlternativeNames);
+            c.AddIfSet("dedupe", r.DedupeResults);
 
-            c.AddBoolIfSet("polygon_geojson", r.ShowGeoJSON);
-            c.AddBoolIfSet("polygon_kml", r.ShowKML);
-            c.AddBoolIfSet("polygon_svg", r.ShowSVG);
-            c.AddBoolIfSet("polygon_text", r.ShowPolygonText);
-            c.AddBoolIfSet("extratags", r.ShowExtraTags);
+            c.AddIfSet("polygon_geojson", r.ShowGeoJSON);
+            c.AddIfSet("polygon_kml", r.ShowKML);
+            c.AddIfSet("polygon_svg", r.ShowSVG);
+            c.AddIfSet("polygon_text", r.ShowPolygonText);
+            c.AddIfSet("extratags", r.ShowExtraTags);
 
             return c;
         }

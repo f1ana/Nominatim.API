@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
 
 namespace Nominatim.API.Extensions {
-    public static class DictionaryExtensions {
-        public static void AddStringIfHasValue(this Dictionary<string, string> d, string key, string value) {
-            if (value.hasValue()) {
-                d.Add(key, value);
-            }
-        }
-
-        public static void AddBoolIfSet(this Dictionary<string, string> d, string key, bool? value) {
-            if (!value.HasValue) {
+    internal static class DictionaryExtensions {
+        public static void AddIfSet<T>(this Dictionary<string, string> d, string key, T value) {
+            if (value == null) {
                 return;
             }
 
-            d.Add(key, value.Value ? "1" : "0");
-        }
+            var type = typeof(T);
 
-        public static void AddIntIfSet(this Dictionary<string, string> d, string key, int? value) {
-            if (!value.HasValue) {
+            if (type == typeof(string)) {
+                var s = value as string;
+                if (!s.hasValue()) {
+                    return;
+                }
+            }
+
+            if (type == typeof(bool) || type == typeof(bool?)) {
+                var b = value as bool?;
+                d.Add(key, b.HasValue && b.Value ? "1" : "0");
                 return;
             }
 
-            d.Add(key, $"{value.Value}");
+            d.Add(key, $"{value}");
         }
     }
 }
