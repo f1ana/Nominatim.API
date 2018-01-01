@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
+using Nominatim.API.Contracts;
 
 namespace Nominatim.API.Web {
     public static class WebInterface {
@@ -12,7 +13,9 @@ namespace Nominatim.API.Web {
             var req = QueryHelpers.AddQueryString(url, parameters);
 
             var result = await _httpClient.GetStringAsync(req);
-            return JsonConvert.DeserializeObject<T>(result);
+            var settings = new JsonSerializerSettings {ContractResolver = new PrivateContractResolver()};
+
+            return JsonConvert.DeserializeObject<T>(result, settings);
         }
     }
 }

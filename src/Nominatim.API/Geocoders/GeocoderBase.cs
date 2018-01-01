@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nominatim.API.Models;
 
-namespace Nominatim.API {
+namespace Nominatim.API.Geocoders {
     public abstract class GeocoderBase {
         public string url = string.Empty;
         public string key = string.Empty;
