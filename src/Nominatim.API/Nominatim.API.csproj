@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christopher Flanagan</Authors>
     <Company />
-    <Description>Library for utilizing the Nominatim tool.</Description>
+    <Description>Library for utilizing geocoding (forward and reverse), in addition to address lookups, with the Nominatim HTTP API.</Description>
     <PackageProjectUrl>https://github.com/f1ana/Nominatim.API</PackageProjectUrl>
     <RepositoryUrl>https://github.com/f1ana/Nominatim.API</RepositoryUrl>
     <PackageTags>nominatim, osm, geocode, geocoding</PackageTags>
