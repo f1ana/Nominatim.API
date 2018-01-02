@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Models;
 using Nominatim.API.Web;
@@ -28,8 +29,9 @@ namespace Nominatim.API.Address {
         /// </summary>
         /// <param name="req">Search request object</param>
         /// <returns>Array of lookup reponses</returns>
-        public AddressLookupResponse[] Lookup(AddressSearchRequest req) {
-            return WebInterface.GetRequest<AddressLookupResponse[]>(url, buildQueryString(req)).Result;
+        public async Task<AddressLookupResponse[]> Lookup(AddressSearchRequest req) {
+            var result = await WebInterface.GetRequest<AddressLookupResponse[]>(url, buildQueryString(req));
+            return result;
         }
 
         private Dictionary<string, string> buildQueryString(AddressSearchRequest r) {

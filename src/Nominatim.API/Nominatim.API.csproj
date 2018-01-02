@@ -6,10 +6,12 @@
     <Authors>Christopher Flanagan</Authors>
     <Company />
     <Description>Library for utilizing the Nominatim tool.</Description>
-    <PackageProjectUrl>https://gitlab.com/f1ana/Nominatim.API</PackageProjectUrl>
-    <RepositoryUrl>https://gitlab.com/f1ana/Nominatim.API</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/f1ana/Nominatim.API</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/f1ana/Nominatim.API</RepositoryUrl>
     <PackageTags>nominatim, osm, geocode, geocoding</PackageTags>
     <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <Version>1.1.0</Version>
+    <PackageLicenseUrl>https://github.com/f1ana/Nominatim.API/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

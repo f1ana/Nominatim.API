@@ -17,8 +17,9 @@ namespace Nominatim.API.Tests {
                 ShowAlternativeNames = true,
                 ShowGeoJSON = true
             });
+            r.Wait();
 
-            Assert.IsTrue(r.Length > 0);
+            Assert.IsTrue(r.Result.Length > 0);
         }
 
         [TestMethod]
@@ -34,8 +35,9 @@ namespace Nominatim.API.Tests {
                 ShowAlternativeNames = true,
                 ShowGeoJSON = true
             });
-
-            Assert.IsTrue(r2.PlaceID > 0);
+            r2.Wait();
+            
+            Assert.IsTrue(r2.Result.PlaceID > 0);
         }
     }
 }

@@ -15,8 +15,9 @@ namespace Nominatim.API.Tests {
                 ShowAlternativeNames = true,
                 ShowExtraTags = true
             });
+            r.Wait();
 
-            Assert.IsTrue(r.Length > 0);
+            Assert.IsTrue(r.Result.Length > 0);
         }
     }
 }

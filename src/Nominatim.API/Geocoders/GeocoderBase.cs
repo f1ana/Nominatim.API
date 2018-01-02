@@ -1,9 +1,13 @@
 ﻿namespace Nominatim.API.Geocoders {
     public abstract class GeocoderBase {
+        protected GeocoderBase(string URL) {
+            url = URL;
+        }
+
         /// <summary>
         /// URL to Nominatim service
         /// </summary>
-        public string url = string.Empty;
+        public string url;
         /// <summary>
         /// API Key, if you are using an Nominatim service that requires one.
         /// </summary>

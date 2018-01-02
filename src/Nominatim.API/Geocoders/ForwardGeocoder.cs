@@ -1,28 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Models;
 using Nominatim.API.Web;
 
 namespace Nominatim.API.Geocoders {
     /// <summary>
-    /// Class to enable forward geocoding (e.g.  address to latitude and longitude)
+    ///     Class to enable forward geocoding (e.g.  address to latitude and longitude)
     /// </summary>
     public class ForwardGeocoder : GeocoderBase {
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ForwardGeocoder(string URL = null) {
-            url = URL ?? @"http://nominatim.openstreetmap.org/search";
+        public ForwardGeocoder(string URL = null) : base(URL ?? @"http://nominatim.openstreetmap.org/search") {
         }
 
         /// <summary>
-        /// Attempt to get coordinates for a specified query or address.
+        ///     Attempt to get coordinates for a specified query or address.
         /// </summary>
         /// <param name="req">Geocode request object</param>
         /// <returns>Array of geocode responses</returns>
-        public GeocodeResponse[] Geocode(ForwardGeocodeRequest req) {
-            return WebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).Result;
+        public async Task<GeocodeResponse[]> Geocode(ForwardGeocodeRequest req) {
+            var result = await WebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req));
+            return result;
         }
 
         private Dictionary<string, string> buildQueryString(ForwardGeocodeRequest r) {
@@ -31,7 +32,7 @@ namespace Nominatim.API.Geocoders {
             // We only support JSON
             c.AddIfSet("format", format);
             c.AddIfSet("key", key);
-            
+
             if (r.queryString.hasValue()) {
                 c.Add("q", r.queryString);
             }
@@ -48,7 +49,7 @@ namespace Nominatim.API.Geocoders {
                 var v = r.ViewBox.Value;
                 c.Add("viewbox", $"{v.minLatitude},{v.minLongitude},{v.maxLatitude},{v.maxLongitude}");
             }
-            
+
             c.AddIfSet("bounded", r.ViewboxBoundedResults);
             c.AddIfSet("addressdetails", r.BreakdownAddressElements);
             c.AddIfSet("limit", r.LimitResults);
