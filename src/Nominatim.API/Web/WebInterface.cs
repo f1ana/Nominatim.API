@@ -22,7 +22,7 @@ namespace Nominatim.API.Web {
         public static async Task<T> GetRequest<T>(string url, Dictionary<string, string> parameters) {
             var req = QueryHelpers.AddQueryString(url, parameters);
 
-            var result = await _httpClient.GetStringAsync(req);
+            var result = await _httpClient.GetStringAsync(req).ConfigureAwait(false);
             var settings = new JsonSerializerSettings {ContractResolver = new PrivateContractResolver()};
 
             return JsonConvert.DeserializeObject<T>(result, settings);

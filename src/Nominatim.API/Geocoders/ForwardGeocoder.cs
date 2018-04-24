@@ -22,7 +22,7 @@ namespace Nominatim.API.Geocoders {
         /// <param name="req">Geocode request object</param>
         /// <returns>Array of geocode responses</returns>
         public async Task<GeocodeResponse[]> Geocode(ForwardGeocodeRequest req) {
-            var result = await WebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req));
+            var result = await WebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 
