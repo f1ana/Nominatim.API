@@ -30,7 +30,7 @@ namespace Nominatim.API.Address {
         /// <param name="req">Search request object</param>
         /// <returns>Array of lookup reponses</returns>
         public async Task<AddressLookupResponse[]> Lookup(AddressSearchRequest req) {
-            var result = await WebInterface.GetRequest<AddressLookupResponse[]>(url, buildQueryString(req));
+            var result = await WebInterface.GetRequest<AddressLookupResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 
