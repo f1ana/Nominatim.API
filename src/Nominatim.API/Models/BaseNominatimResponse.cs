@@ -25,7 +25,7 @@ namespace Nominatim.API.Models {
         /// The OSM ID of this element type.
         /// </summary>
         [JsonProperty("osm_id")]
-        public int OSMID { get; set; }
+        public long OSMID { get; set; }
 
         /// <summary>
         /// The Latitude of this element
