@@ -1,4 +1,4 @@
-# Nominatim Forward and Reverse C# Geocoding API
+# Nominatim API Forward and Reverse Geocoding C# 
 
 The API returns latitude/longitude coordinates and normalized address information.  
 This can be used to perform address validation, real time mapping of user-entered addresses, distance calculations, and much more.
