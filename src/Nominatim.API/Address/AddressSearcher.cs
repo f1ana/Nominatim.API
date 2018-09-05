@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Models;
@@ -21,7 +21,7 @@ namespace Nominatim.API.Address {
         /// </summary>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
         public AddressSearcher(string URL = null) {
-            url = URL ?? @"http://nominatim.openstreetmap.org/lookup";
+            url = URL ?? @"https://nominatim.openstreetmap.org/lookup";
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Models;
@@ -13,7 +13,7 @@ namespace Nominatim.API.Geocoders {
         ///     Constructor
         /// </summary>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ForwardGeocoder(string URL = null) : base(URL ?? @"http://nominatim.openstreetmap.org/search") {
+        public ForwardGeocoder(string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/search") {
         }
 
         /// <summary>
