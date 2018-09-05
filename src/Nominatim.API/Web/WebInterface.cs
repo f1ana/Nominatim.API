@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -21,6 +23,9 @@ namespace Nominatim.API.Web {
         /// <returns>Deserialized instance of T</returns>
         public static async Task<T> GetRequest<T>(string url, Dictionary<string, string> parameters) {
             var req = QueryHelpers.AddQueryString(url, parameters);
+
+            _httpClient.DefaultRequestHeaders.UserAgent.Clear();
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("f1ana.Nominatim.API", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
 
             var result = await _httpClient.GetStringAsync(req).ConfigureAwait(false);
             var settings = new JsonSerializerSettings {ContractResolver = new PrivateContractResolver()};
