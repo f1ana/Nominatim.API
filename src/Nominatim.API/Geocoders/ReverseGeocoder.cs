@@ -1,5 +1,8 @@
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Globalization;
 using Nominatim.API.Extensions;
 using Nominatim.API.Models;
 using Nominatim.API.Web;
@@ -33,8 +36,8 @@ namespace Nominatim.API.Geocoders {
             c.AddIfSet("format", format);
             c.AddIfSet("key", key);
 
-            c.AddIfSet("lat", r.Latitude);
-            c.AddIfSet("lon", r.Longitude);
+            c.AddIfSet("lat", r.Latitude.Value.ToString(CultureInfo.InvariantCulture.NumberFormat));
+            c.AddIfSet("lon", r.Longitude.Value.ToString(CultureInfo.InvariantCulture.NumberFormat));
             c.AddIfSet("zoom", r.ZoomLevel);
             c.AddIfSet("addressdetails", r.BreakdownAddressElements);
             c.AddIfSet("namedetails", r.ShowAlternativeNames);
