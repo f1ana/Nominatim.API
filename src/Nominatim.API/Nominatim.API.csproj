@@ -9,11 +9,11 @@
     <PackageProjectUrl>https://github.com/f1ana/Nominatim.API</PackageProjectUrl>
     <RepositoryUrl>https://github.com/f1ana/Nominatim.API</RepositoryUrl>
     <PackageTags>nominatim, osm, geocode, geocoding</PackageTags>
-    <PackageReleaseNotes>Use https endpoints only and pass user agent.</PackageReleaseNotes>
-    <Version>1.4.0</Version>
+    <PackageReleaseNotes>Reverse geocoding now repects culture,</PackageReleaseNotes>
+    <Version>1.5.0</Version>
     <PackageLicenseUrl>https://github.com/f1ana/Nominatim.API/blob/master/LICENSE</PackageLicenseUrl>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
+    <AssemblyVersion>1.5.0.0</AssemblyVersion>
+    <FileVersion>1.5.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
