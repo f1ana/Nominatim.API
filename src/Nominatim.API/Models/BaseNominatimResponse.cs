@@ -70,12 +70,6 @@ namespace Nominatim.API.Models {
         public string Class { get; set; }
 
         /// <summary>
-        /// The 'type' of the class/category of this element
-        /// </summary>
-     //  [JsonProperty("type")]
-     //   public string ClassType { get; set; }
-
-        /// <summary>
         /// Calculated importance of this element compared to the search query the user has provided. Ranges between 0 and 1.
         /// </summary>
         [JsonProperty("importance")]
