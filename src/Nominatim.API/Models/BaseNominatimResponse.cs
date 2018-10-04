@@ -72,8 +72,8 @@ namespace Nominatim.API.Models {
         /// <summary>
         /// The 'type' of the class/category of this element
         /// </summary>
-        [JsonProperty("type")]
-        public string ClassType { get; set; }
+     //  [JsonProperty("type")]
+     //   public string ClassType { get; set; }
 
         /// <summary>
         /// Calculated importance of this element compared to the search query the user has provided. Ranges between 0 and 1.
@@ -86,5 +86,37 @@ namespace Nominatim.API.Models {
         /// </summary>
         [JsonProperty("icon")]
         public string IconURL { get; set; }
+
+        // Below the extentions for jsonv2 responses
+
+        /// <summary>
+        /// The category of this element, if applicable.
+        /// Replaces the "class" from jsonv1
+        /// </summary>
+        /// 
+        [JsonProperty("category")]
+        public string Category { get; set; }
+
+        /// <summary>
+        /// The 'type' of the category of this element
+        /// </summary>
+        [JsonProperty("type")]
+        public string ClassType { get; set; }
+      
+        /// <summary>
+        /// The addresstype of this element like road, xxx , if applicable.
+        /// </summary>
+        /// 
+        [JsonProperty("addresstype")]
+        public string Addresstype { get; set; }
+
+        /// <summary>
+        /// The Placerank of this element , if applicable.
+        /// </summary>
+        /// 
+        [JsonProperty("place_rank")]
+        public string PlaceRank { get; set; }
+
+
     }
 }
