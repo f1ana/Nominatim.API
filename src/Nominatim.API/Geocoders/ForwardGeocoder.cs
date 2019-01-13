@@ -47,7 +47,7 @@ namespace Nominatim.API.Geocoders {
 
             if (r.ViewBox != null) {
                 var v = r.ViewBox.Value;
-                c.Add("viewbox", $"{v.minLatitude},{v.minLongitude},{v.maxLatitude},{v.maxLongitude}");
+                c.Add("viewbox", $"{v.minLongitude},{v.minLatitude},{v.maxLongitude},{v.maxLatitude}");
             }
 
             c.AddIfSet("bounded", r.ViewboxBoundedResults);
