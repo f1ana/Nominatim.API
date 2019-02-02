@@ -39,7 +39,7 @@ namespace Nominatim.API.Geocoders {
             c.AddIfSet("zoom", r.ZoomLevel);
             c.AddIfSet("addressdetails", r.BreakdownAddressElements);
             c.AddIfSet("namedetails", r.ShowAlternativeNames);
-            c.AddIfSet("accept-lanauage", r.PreferredLanguages);
+            c.AddIfSet("accept-language", r.PreferredLanguages);
             c.AddIfSet("countrycodes", r.CountryCodeSearch);
             c.AddIfSet("polygon_geojson", r.ShowGeoJSON);
             c.AddIfSet("polygon_kml", r.ShowKML);
