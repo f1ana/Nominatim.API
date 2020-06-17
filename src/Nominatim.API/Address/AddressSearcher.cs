@@ -10,6 +10,7 @@ namespace Nominatim.API.Address {
     /// </summary>
     public class AddressSearcher {
         public string url;
+        //jsonv2 not supported for lookup
         private readonly string format = "json";
         /// <summary>
         /// API Key, if you are using an Nominatim service that requires one.

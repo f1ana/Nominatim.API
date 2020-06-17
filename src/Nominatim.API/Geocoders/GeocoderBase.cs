@@ -13,8 +13,8 @@
         /// </summary>
         public string key = string.Empty;
         /// <summary>
-        /// Format of response objects.  This library only supports JSON.
+        /// Format of response objects.  This library only supports JSON/JSONV2.
         /// </summary>
-        public readonly string format = "json";
+        public readonly string format = "jsonv2";
     }
 }
