@@ -1,0 +1,96 @@
+[
+  {
+    "place_id": 205327805,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 564931814,
+    "boundingbox": ["38.8957842", "38.895924", "-77.0309688", "-77.0304609"],
+    "lat": "38.8958536",
+    "lon": "-77.0307129",
+    "display_name": "Pennsylvania Avenue, Penn Quarter, Washington, District of Columbia, 20045, United States of America",
+    "place_rank": 27,
+    "category": "highway",
+    "type": "path",
+    "importance": 0.385,
+    "address": {
+      "road": "Pennsylvania Avenue",
+      "neighbourhood": "Penn Quarter",
+      "city": "Washington",
+      "county": "Washington",
+      "state": "District of Columbia",
+      "postcode": "20045",
+      "country": "United States of America",
+      "country_code": "us"
+    },
+    "geojson": {
+      "type": "LineString",
+      "coordinates": [
+        [-77.0304609, 38.8957842],
+        [-77.030476, 38.8957883],
+        [-77.0305176, 38.8957998],
+        [-77.0305262, 38.8958022],
+        [-77.030554, 38.8958098],
+        [-77.03057, 38.8958142],
+        [-77.0306135, 38.8958262],
+        [-77.0306372, 38.8958328],
+        [-77.0306819, 38.895845],
+        [-77.0307057, 38.8958516],
+        [-77.0307129, 38.8958536],
+        [-77.0307438, 38.8958621],
+        [-77.0307841, 38.8958732],
+        [-77.0308217, 38.8958835],
+        [-77.0308492, 38.8958911],
+        [-77.030877, 38.8958988],
+        [-77.0309204, 38.8959107],
+        [-77.0309688, 38.895924]
+      ]
+    },
+    "extratags": {},
+    "namedetails": { "name": "Pennsylvania Avenue" }
+  },
+  {
+    "place_id": 176517326,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 397325778,
+    "boundingbox": ["38.8633822", "38.8637409", "-76.9467576", "-76.945632"],
+    "lat": "38.8636383",
+    "lon": "-76.9463651",
+    "display_name": "Pennsylvania Avenue, Dillon Park, Coral Hills, Prince George's County, District of Columbia, 20746-8001, United States of America",
+    "place_rank": 26,
+    "category": "highway",
+    "type": "trunk",
+    "importance": 0.3,
+    "address": {
+      "road": "Pennsylvania Avenue",
+      "hamlet": "Dillon Park",
+      "locality": "Coral Hills",
+      "county": "Prince George's County",
+      "state": "District of Columbia",
+      "postcode": "20746-8001",
+      "country": "United States of America",
+      "country_code": "us"
+    },
+    "geojson": {
+      "type": "LineString",
+      "coordinates": [
+        [-76.945632, 38.8633822],
+        [-76.9459913, 38.8634972],
+        [-76.9463651, 38.8636383],
+        [-76.9467576, 38.8637409]
+      ]
+    },
+    "extratags": {
+      "NHS": "yes",
+      "lanes": "3",
+      "oneway": "yes",
+      "expressway": "yes",
+      "access_control": "partial"
+    },
+    "namedetails": {
+      "ref": "MD 4",
+      "name": "Pennsylvania Avenue",
+      "name:en": "Pennsylvania Avenue"
+    }
+  }
+]
