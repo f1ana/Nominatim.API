@@ -14,7 +14,7 @@ namespace Nominatim.NetCore.API.Tests
         [TestMethod]
         public void TestSuccessfulForwardGeocode()
         {
-            var x = new ForwardGeocoder(ApplicationName: "upnorthspace");
+            var x = new ForwardGeocoder(ApplicationName: "f1ana.Nominatim.API");
 
             var r = x.Geocode(new ForwardGeocodeRequest
             {
@@ -33,7 +33,7 @@ namespace Nominatim.NetCore.API.Tests
         [TestMethod]
         public void TestSuccessfulReverseGeocodeBuilding()
         {
-            var y = new ReverseGeocoder(ApplicationName: "upnorthspace");
+            var y = new ReverseGeocoder(ApplicationName: "f1ana.Nominatim.API");
 
             var r2 = y.ReverseGeocode(new ReverseGeocodeRequest
             {
@@ -54,7 +54,7 @@ namespace Nominatim.NetCore.API.Tests
         [TestMethod]
         public void TestSuccessfulReverseGeocodeRoad()
         {
-            var z = new ReverseGeocoder(ApplicationName: "upnorthspace");
+            var z = new ReverseGeocoder(ApplicationName: "f1ana.Nominatim.API");
 
             var r3 = z.ReverseGeocode(new ReverseGeocodeRequest
             {

@@ -13,7 +13,7 @@ namespace Nominatim.NetCore.API.Tests
         [TestMethod]
         public void TestSuccessfulAddressLookup()
         {
-            var x = new AddressSearcher(ApplicationName: "upnorthspace");
+            var x = new AddressSearcher(ApplicationName: "f1ana.Nominatim.API");
             var r = x.Lookup(new AddressSearchRequest
             {
                 OSMIDs = new List<string>(new[] { "R146656", "W104393803", "N240109189" }),
