@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -13,7 +14,7 @@ namespace Nominatim.API.Web {
     /// </summary>
     public static class WebInterface {
         private static readonly HttpClient _httpClient = new HttpClient();
-
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         /// <summary>
         ///     Send a request to the Nominatim server
         /// </summary>
