@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nominatim.NetCore.API", "Nominatim.NetCore.API\Nominatim.NetCore.API.csproj", "{B3ABD51A-CBF6-44EB-B81E-D20CF72C24B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nominatim.NetCore.API.Tests", "Nominatim.NetCore.API.Tests\Nominatim.NetCore.API.Tests.csproj", "{DA6AFB1C-C3E6-43CC-BC9D-59FA74057DCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3ABD51A-CBF6-44EB-B81E-D20CF72C24B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3ABD51A-CBF6-44EB-B81E-D20CF72C24B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3ABD51A-CBF6-44EB-B81E-D20CF72C24B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3ABD51A-CBF6-44EB-B81E-D20CF72C24B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA6AFB1C-C3E6-43CC-BC9D-59FA74057DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA6AFB1C-C3E6-43CC-BC9D-59FA74057DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA6AFB1C-C3E6-43CC-BC9D-59FA74057DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA6AFB1C-C3E6-43CC-BC9D-59FA74057DCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CC2833F-DA54-4C91-B5C2-324C503507DE}
+	EndGlobalSection
+EndGlobal
