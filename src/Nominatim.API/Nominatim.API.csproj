@@ -9,11 +9,11 @@
     <PackageProjectUrl>https://github.com/f1ana/Nominatim.API</PackageProjectUrl>
     <RepositoryUrl>https://github.com/f1ana/Nominatim.API</RepositoryUrl>
     <PackageTags>nominatim, osm, geocode, geocoding</PackageTags>
-    <Version>1.6.0</Version>
+    <Version>1.6.1</Version>
     <PackageLicenseUrl>https://github.com/f1ana/Nominatim.API/blob/master/LICENSE</PackageLicenseUrl>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-    <FileVersion>1.6.0.0</FileVersion>
-    <PackageVersion>1.6.0</PackageVersion>
+    <AssemblyVersion>1.6.1.0</AssemblyVersion>
+    <FileVersion>1.6.1.0</FileVersion>
+    <PackageVersion>1.6.1</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

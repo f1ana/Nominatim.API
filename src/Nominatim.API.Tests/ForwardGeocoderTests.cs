@@ -57,7 +57,7 @@ namespace Nominatim.API.Tests {
             });
             r3.Wait();
 
-            Assert.IsTrue((r3.Result.PlaceID > 0) && (r3.Result.Category == "highway") && (r3.Result.ClassType == "motorway"));
+            Assert.IsTrue((r3.Result.PlaceID > 0) && (r3.Result.Category == "highway") && (r3.Result.ClassType == "milestone"));
         }
     }
 }

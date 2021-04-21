@@ -2,16 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
-
-    <Version>1.6.0</Version>
-
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-
-    <FileVersion>1.6.0.0</FileVersion>
-
-    <PackageVersion>1.6.0</PackageVersion>
+    <Version>1.6.1</Version>
+    <AssemblyVersion>1.6.1.0</AssemblyVersion>
+    <FileVersion>1.6.1.0</FileVersion>
+    <PackageVersion>1.6.1</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
