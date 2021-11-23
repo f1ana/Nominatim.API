@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Models;
@@ -13,7 +14,7 @@ namespace Nominatim.API.Geocoders {
         ///     Constructor
         /// </summary>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ForwardGeocoder(string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/search") {
+        public ForwardGeocoder(string URL = null, HttpMessageHandler httpMessageHandler = null, bool disposeMessageHandler = false) : base(URL ?? @"https://nominatim.openstreetmap.org/search", httpMessageHandler, disposeMessageHandler) {
         }
 
         /// <summary>
@@ -22,7 +23,7 @@ namespace Nominatim.API.Geocoders {
         /// <param name="req">Geocode request object</param>
         /// <returns>Array of geocode responses</returns>
         public async Task<GeocodeResponse[]> Geocode(ForwardGeocodeRequest req) {
-            var result = await WebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
+            var result = await base.webInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 

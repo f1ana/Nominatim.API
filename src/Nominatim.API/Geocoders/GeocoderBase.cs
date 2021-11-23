@@ -1,8 +1,14 @@
-﻿namespace Nominatim.API.Geocoders {
+﻿using System.Net.Http;
+using Nominatim.API.Web;
+
+namespace Nominatim.API.Geocoders {
     public abstract class GeocoderBase {
-        protected GeocoderBase(string URL) {
+        protected GeocoderBase(string URL, HttpMessageHandler handler = null, bool disposeMessageHandler = false) {
             url = URL;
+
+            webInterface = new WebInterface(handler, disposeMessageHandler);
         }
+        protected readonly WebInterface webInterface;
 
         /// <summary>
         /// URL to Nominatim service

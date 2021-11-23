@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Models;
@@ -12,6 +13,8 @@ namespace Nominatim.API.Address {
         public string url;
         //jsonv2 not supported for lookup
         private readonly string format = "json";
+        private readonly WebInterface _webInterface;
+
         /// <summary>
         /// API Key, if you are using an Nominatim service that requires one.
         /// </summary>
@@ -21,8 +24,9 @@ namespace Nominatim.API.Address {
         /// Constructur
         /// </summary>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public AddressSearcher(string URL = null) {
-            url = URL ?? @"https://nominatim.openstreetmap.org/lookup";
+        public AddressSearcher(string URL = "https://nominatim.openstreetmap.org/lookup", HttpMessageHandler httpMessageHandler=null, bool disposeMessageHandler=false) {
+            url = URL;
+            _webInterface = new WebInterface(httpMessageHandler, disposeMessageHandler);   
         }
 
         /// <summary>
@@ -31,7 +35,7 @@ namespace Nominatim.API.Address {
         /// <param name="req">Search request object</param>
         /// <returns>Array of lookup reponses</returns>
         public async Task<AddressLookupResponse[]> Lookup(AddressSearchRequest req) {
-            var result = await WebInterface.GetRequest<AddressLookupResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
+            var result = await _webInterface.GetRequest<AddressLookupResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 

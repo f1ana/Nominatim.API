@@ -12,10 +12,15 @@ namespace Nominatim.API.Web {
     /// <summary>
     ///     Provides a means of sending HTTP requests to a Nominatim server
     /// </summary>
-    public static class WebInterface {
-        private static readonly HttpClient _httpClient = new HttpClient();
+    public class WebInterface {
+        private readonly HttpClient _httpClient;
 
-        static WebInterface() {
+        public WebInterface(HttpMessageHandler httpMessageHandler=null, bool disposeMessageHandler=false) {
+            if (httpMessageHandler != null)
+                _httpClient = new HttpClient(httpMessageHandler, disposeMessageHandler);
+            else
+                _httpClient = new HttpClient();
+
             _httpClient.DefaultRequestHeaders.UserAgent.Clear();
             _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("f1ana.Nominatim.API", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
         }
@@ -27,7 +32,7 @@ namespace Nominatim.API.Web {
         /// <param name="url">URL of Nominatim server method</param>
         /// <param name="parameters">Query string parameters</param>
         /// <returns>Deserialized instance of T</returns>
-        public static async Task<T> GetRequest<T>(string url, Dictionary<string, string> parameters) {
+        public async Task<T> GetRequest<T>(string url, Dictionary<string, string> parameters) {
             var req = addQueryStringToUrl(url, parameters);
 
             var result = await _httpClient.GetStringAsync(req).ConfigureAwait(false);

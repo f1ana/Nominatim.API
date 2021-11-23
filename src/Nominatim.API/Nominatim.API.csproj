@@ -11,9 +11,9 @@
     <PackageTags>nominatim, osm, geocode, geocoding</PackageTags>
     <Version>1.6.1</Version>
     <PackageLicenseUrl>https://github.com/f1ana/Nominatim.API/blob/master/LICENSE</PackageLicenseUrl>
-    <AssemblyVersion>1.6.1.0</AssemblyVersion>
-    <FileVersion>1.6.1.0</FileVersion>
-    <PackageVersion>1.6.1</PackageVersion>
+    <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    <FileVersion>1.7.0.0</FileVersion>
+    <PackageVersion>1.7.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

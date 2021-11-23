@@ -4,7 +4,7 @@ using Nominatim.API.Models;
 
 namespace Nominatim.API.Tests {
     [TestClass]
-    public class GeocoderTests {
+    public class ForwardGeocoderTests {
         [TestMethod]
         public void TestSuccessfulForwardGeocode() {
             var x = new ForwardGeocoder();
