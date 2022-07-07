@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
+using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
 using Nominatim.API.Web;
 
@@ -8,12 +9,16 @@ namespace Nominatim.API.Geocoders {
     /// <summary>
     ///     Class to enable forward geocoding (e.g.  address to latitude and longitude)
     /// </summary>
-    public class ForwardGeocoder : GeocoderBase {
+    public class ForwardGeocoder : GeocoderBase, IForwardGeocoder {
+        private readonly INominatimWebInterface _nominatimWebInterface;
+        
         /// <summary>
         ///     Constructor
         /// </summary>
+        /// <param name="nominatimWebInterface">Injected instance of INominatimWebInterface</param>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ForwardGeocoder(string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/search") {
+        public ForwardGeocoder(INominatimWebInterface nominatimWebInterface, string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/search") {
+            _nominatimWebInterface = nominatimWebInterface;
         }
 
         /// <summary>
@@ -22,7 +27,7 @@ namespace Nominatim.API.Geocoders {
         /// <param name="req">Geocode request object</param>
         /// <returns>Array of geocode responses</returns>
         public async Task<GeocodeResponse[]> Geocode(ForwardGeocodeRequest req) {
-            var result = await WebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
+            var result = await _nominatimWebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 

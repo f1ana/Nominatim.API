@@ -28,7 +28,7 @@ namespace Nominatim.API.Models {
         /// </summary>
         [JsonProperty("geojson")]
         [JsonConverter(typeof(GeoJsonConverter))]
-        private object GeoJSON { get; set; }
+        public object GeoJSON { get; set; }
 
 
         /// <summary>

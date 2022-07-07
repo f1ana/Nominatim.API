@@ -7,17 +7,17 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Nominatim.API.Contracts;
+using Nominatim.API.Interfaces;
 
 namespace Nominatim.API.Web {
     /// <summary>
     ///     Provides a means of sending HTTP requests to a Nominatim server
     /// </summary>
-    public static class WebInterface {
-        private static readonly HttpClient _httpClient = new HttpClient();
+    public class NominatimWebInterface : INominatimWebInterface {
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        static WebInterface() {
-            _httpClient.DefaultRequestHeaders.UserAgent.Clear();
-            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("f1ana.Nominatim.API", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
+        public NominatimWebInterface(IHttpClientFactory httpClientFactory) {
+            _httpClientFactory = httpClientFactory;
         }
         
         /// <summary>
@@ -27,10 +27,12 @@ namespace Nominatim.API.Web {
         /// <param name="url">URL of Nominatim server method</param>
         /// <param name="parameters">Query string parameters</param>
         /// <returns>Deserialized instance of T</returns>
-        public static async Task<T> GetRequest<T>(string url, Dictionary<string, string> parameters) {
+        public async Task<T> GetRequest<T>(string url, Dictionary<string, string> parameters) {
             var req = addQueryStringToUrl(url, parameters);
 
-            var result = await _httpClient.GetStringAsync(req).ConfigureAwait(false);
+            var httpClient = _httpClientFactory.CreateClient();
+            AddUserAgent(httpClient);
+            var result = await httpClient.GetStringAsync(req).ConfigureAwait(false);
             var settings = new JsonSerializerSettings {ContractResolver = new PrivateContractResolver()};
 
             return JsonConvert.DeserializeObject<T>(result, settings);
@@ -51,6 +53,11 @@ namespace Nominatim.API.Web {
             }
 
             return sb.ToString();
+        }
+
+        private static void AddUserAgent(HttpClient httpClient) {
+            httpClient.DefaultRequestHeaders.UserAgent.Clear();
+            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("f1ana.Nominatim.API", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
         }
     }
 }

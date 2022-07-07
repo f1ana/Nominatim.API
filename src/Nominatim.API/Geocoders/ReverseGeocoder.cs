@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
+using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
 using Nominatim.API.Web;
 
@@ -10,12 +11,16 @@ namespace Nominatim.API.Geocoders {
     /// <summary>
     ///     Class to enable reverse geocoding (e.g. latitude and longitude to address)
     /// </summary>
-    public class ReverseGeocoder : GeocoderBase {
+    public class ReverseGeocoder : GeocoderBase, IReverseGeocoder {
+        private readonly INominatimWebInterface _nominatimWebInterface;
+        
         /// <summary>
         ///     Constructor
         /// </summary>
+        /// <param name="nominatimWebInterface">Injected instance of INominatimWebInterface</param>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ReverseGeocoder(string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/reverse") {
+        public ReverseGeocoder(INominatimWebInterface nominatimWebInterface, string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/reverse") {
+            _nominatimWebInterface = nominatimWebInterface;
         }
 
         /// <summary>
@@ -24,7 +29,7 @@ namespace Nominatim.API.Geocoders {
         /// <param name="req">Reverse geocode request object</param>
         /// <returns>A single reverse geocode response</returns>
         public async Task<GeocodeResponse> ReverseGeocode(ReverseGeocodeRequest req) {
-            var result = await WebInterface.GetRequest<GeocodeResponse>(url, buildQueryString(req)).ConfigureAwait(false);
+            var result = await _nominatimWebInterface.GetRequest<GeocodeResponse>(url, buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 
