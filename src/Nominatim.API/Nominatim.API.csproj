@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christopher Flanagan</Authors>
     <Company />
@@ -9,17 +8,19 @@
     <PackageProjectUrl>https://github.com/f1ana/Nominatim.API</PackageProjectUrl>
     <RepositoryUrl>https://github.com/f1ana/Nominatim.API</RepositoryUrl>
     <PackageTags>nominatim, osm, geocode, geocoding</PackageTags>
-    <Version>1.6.1</Version>
+    <Version>2.0.0</Version>
     <PackageLicenseUrl>https://github.com/f1ana/Nominatim.API/blob/master/LICENSE</PackageLicenseUrl>
-    <AssemblyVersion>1.6.1.0</AssemblyVersion>
-    <FileVersion>1.6.1.0</FileVersion>
-    <PackageVersion>1.6.1</PackageVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <PackageVersion>2.0.0</PackageVersion>
+    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="GeoJSON.Net" Version="1.2.19" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
