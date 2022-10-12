@@ -20,31 +20,19 @@ Nominatim.API now targets .NET Standard 2.0 and .NET 6, which should mean that w
 
 With Nominatim.API 2.0.0, it is more straightforward to support codebases that rely on dependency injection.  Furthermore, we are now using modern methods to facilitate web requests, such as `HttpClientFactory` and `HttpClient`.  This library does not register any interfaces and implementations, and expects you to do so in a manner that you find to be appropriate.  This is also done to allow the developer to register and customize how the `HttpClient` is used to their liking.
 
-Here are the interfaces and implementations that should be registered:
-
-`INominatimWebInterface` -> `NominatimWebInterface`
-
-`IAddressSearcher` -> `AddressSearcher`
-
-`IReverseGeocoder` -> `ReverseGeocoder`
-
-`IForwardGeocoder` -> `ForwardGeocoder`
+To add a service call `.AddNoninatimServices()` to your `ServiceCollection`.
 
 Finally, be sure to call `.AddHttpClient()` to your `ServiceCollection` for a vanilla `HttpClient` implementation.  Customize as needed for your respective DI library or use case.
 
-Code surface is very simple, here are the methods exposed by interfaces:
-
-`IAddressSearcher`:
+The code surface is very simple - using the `INominatimWebInterface` interface, here are the available methods:
 
 `Task<AddressLookupResponse[]> Lookup(AddressSearchRequest req);`
 \
 \
-`IForwardGeocoder`:
 
 `Task<GeocodeResponse[]> Geocode(ForwardGeocodeRequest req)`
 \
 \
-`IReverseGeocoder`:
 
 `Task<GeocodeResponse> ReverseGeocode(ReverseGeocodeRequest req);`
 \
