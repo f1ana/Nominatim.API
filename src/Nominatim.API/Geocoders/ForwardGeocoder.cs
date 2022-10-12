@@ -5,21 +5,20 @@ using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
 using Nominatim.API.Web;
 
-namespace Nominatim.API.Geocoders {
+namespace Nominatim.API.Geocoders
+{
     /// <summary>
     ///     Class to enable forward geocoding (e.g.  address to latitude and longitude)
     /// </summary>
     public class ForwardGeocoder : GeocoderBase, IForwardGeocoder {
-        private readonly INominatimWebInterface _nominatimWebInterface;
-        
+
         /// <summary>
         ///     Constructor
         /// </summary>
         /// <param name="nominatimWebInterface">Injected instance of INominatimWebInterface</param>
-        /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ForwardGeocoder(INominatimWebInterface nominatimWebInterface, string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/search") {
-            _nominatimWebInterface = nominatimWebInterface;
-        }
+        public ForwardGeocoder(INominatimWebInterface nominatimWebInterface) : base(nominatimWebInterface) { }
+
+        protected override string ApiMethod => "search";
 
         /// <summary>
         ///     Attempt to get coordinates for a specified query or address.
@@ -27,7 +26,7 @@ namespace Nominatim.API.Geocoders {
         /// <param name="req">Geocode request object</param>
         /// <returns>Array of geocode responses</returns>
         public async Task<GeocodeResponse[]> Geocode(ForwardGeocodeRequest req) {
-            var result = await _nominatimWebInterface.GetRequest<GeocodeResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
+            var result = await NominatimWeb.GetRequest<GeocodeResponse[]>(GetRequestUrl(), buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 
@@ -36,7 +35,7 @@ namespace Nominatim.API.Geocoders {
 
             // We only support JSON
             c.AddIfSet("format", format);
-            c.AddIfSet("key", key);
+            c.AddIfSet("key", Key);
 
             if (r.queryString.hasValue()) {
                 c.Add("q", r.queryString);

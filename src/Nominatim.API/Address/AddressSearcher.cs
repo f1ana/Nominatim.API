@@ -3,32 +3,26 @@ using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
-using Nominatim.API.Web;
 
-namespace Nominatim.API.Address {
+namespace Nominatim.API.Address
+{
     /// <summary>
     /// Lookup the address of one or multiple OSM objects like node, way or relation.
     /// </summary>
-    public class AddressSearcher : IAddressSearcher {
-        private readonly INominatimWebInterface _nominatimWebInterface;
+    public class AddressSearcher : BaseUrlService, IAddressSearcher {
         
-        public string url;
         //jsonv2 not supported for lookup
         private readonly string format = "json";
-        /// <summary>
-        /// API Key, if you are using an Nominatim service that requires one.
-        /// </summary>
-        public string key;
+
+        public string Key => NominatimWeb.ApiKey;
+
+        protected override string ApiMethod => "lookup";
 
         /// <summary>
         /// Constructur
         /// </summary>
         /// <param name="nominatimWebInterface">Injected instance of INominatimWebInterface</param>
-        /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public AddressSearcher(INominatimWebInterface nominatimWebInterface, string URL = null) {
-            _nominatimWebInterface = nominatimWebInterface;
-            url = URL ?? @"https://nominatim.openstreetmap.org/lookup";
-        }
+        public AddressSearcher(INominatimWebInterface nominatimWebInterface) : base(nominatimWebInterface) { }        
 
         /// <summary>
         /// Lookup the address of one or multiple OSM objects like node, way or relation.
@@ -36,7 +30,7 @@ namespace Nominatim.API.Address {
         /// <param name="req">Search request object</param>
         /// <returns>Array of lookup reponses</returns>
         public async Task<AddressLookupResponse[]> Lookup(AddressSearchRequest req) {
-            var result = await _nominatimWebInterface.GetRequest<AddressLookupResponse[]>(url, buildQueryString(req)).ConfigureAwait(false);
+            var result = await NominatimWeb.GetRequest<AddressLookupResponse[]>(GetRequestUrl(), buildQueryString(req)).ConfigureAwait(false);
             return result;
         }
 
@@ -44,7 +38,7 @@ namespace Nominatim.API.Address {
             var c = new Dictionary<string, string>();
 
             c.AddIfSet("format", format);
-            c.AddIfSet("key", key);
+            c.AddIfSet("key", Key);
             c.AddIfSet("accept-language", r.PreferredLanguages);
             c.AddIfSet("addressdetails", r.BreakdownAddressElements);
             c.AddIfSet("namedetails", r.ShowAlternativeNames);
