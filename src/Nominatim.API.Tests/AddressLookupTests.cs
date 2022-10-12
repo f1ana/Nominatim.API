@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Nominatim.API.Address;
-using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
 using Nominatim.API.Tests.Helpers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Nominatim.API.Tests; 
+namespace Nominatim.API.Tests;
 
 [TestFixture]
 public class AddressLookupTests {
@@ -33,9 +32,10 @@ public class AddressLookupTests {
         };
         
         var nominatimWebInterface = Substitute.For<INominatimWebInterface>();
+        nominatimWebInterface.BaseUrl = StartupSetup.DefaultBaseUrl;
         nominatimWebInterface
             .GetRequest<AddressLookupResponse[]>(
-                Arg.Is(baseUrl), 
+                Arg.Is(baseUrl),
                 Arg.Is<Dictionary<string, string>>(x => x.IsEquivalentTo(expectedSearchDict)))
             .Returns( JsonConvert.DeserializeObject<AddressLookupResponse[]>(responseJson));
         var addressSearcher = new AddressSearcher(nominatimWebInterface);

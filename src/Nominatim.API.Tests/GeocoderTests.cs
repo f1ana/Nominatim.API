@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Nominatim.API.Geocoders;
-using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
 using Nominatim.API.Tests.Helpers;
 using NSubstitute;
 using NUnit.Framework;
+using System.Globalization;
 
-namespace Nominatim.API.Tests; 
+namespace Nominatim.API.Tests;
 
 [TestFixture]
 public class GeocoderTests {
@@ -35,6 +35,7 @@ public class GeocoderTests {
         };
         
         var nominatimWebInterface = Substitute.For<INominatimWebInterface>();
+        nominatimWebInterface.BaseUrl = StartupSetup.DefaultBaseUrl;
         var forwardGeocoder = new ForwardGeocoder(nominatimWebInterface);
         nominatimWebInterface
             .GetRequest<GeocodeResponse[]>(
@@ -65,11 +66,12 @@ public class GeocoderTests {
             ShowGeoJSON = true
         };
         var nominatimWebInterface = Substitute.For<INominatimWebInterface>();
+        nominatimWebInterface.BaseUrl = StartupSetup.DefaultBaseUrl;
         var reverseGeocoder = new ReverseGeocoder(nominatimWebInterface);
         var expectedDict = new Dictionary<string, string> {
             { "format", "jsonv2" },
-            { "lat", $"{reverseGeocodeRequest.Latitude}" },
-            { "lon", $"{reverseGeocodeRequest.Longitude}" },
+            { "lat", $"{reverseGeocodeRequest.Latitude?.ToString(CultureInfo.InvariantCulture.NumberFormat)}" },
+            { "lon", $"{reverseGeocodeRequest.Longitude?.ToString(CultureInfo.InvariantCulture.NumberFormat)}" },
             { "addressdetails", "1" },
             { "namedetails", "1" },
             { "polygon_geojson", "1"},
@@ -80,11 +82,11 @@ public class GeocoderTests {
                 Arg.Is(baseUrl),
                 Arg.Is<Dictionary<string, string>>(x => x.IsEquivalentTo(expectedDict)))
             .Returns(JsonConvert.DeserializeObject<GeocodeResponse>(responseJson));
-        
+
         // act
         var r = await reverseGeocoder.ReverseGeocode(reverseGeocodeRequest);
-        
+
         // assert
-        Assert.AreEqual(159859857, r.PlaceID);
+        Assert.AreEqual(159859857, r?.PlaceID ?? 0);
     }
 }
