@@ -26,18 +26,14 @@ Finally, be sure to call `.AddHttpClient()` to your `ServiceCollection` for a va
 
 The code surface is very simple - using the `INominatimWebInterface` interface, here are the available methods:
 
-`Task<AddressLookupResponse[]> Lookup(AddressSearchRequest req);`
-\
-\
+`Task<AddressLookupResponse[]> Lookup(AddressSearchRequest req)`
 
 `Task<GeocodeResponse[]> Geocode(ForwardGeocodeRequest req)`
-\
-\
 
-`Task<GeocodeResponse> ReverseGeocode(ReverseGeocodeRequest req);`
-\
-\
-\
+`Task<GeocodeResponse> ReverseGeocode(ReverseGeocodeRequest req)`
+
+Also you can change the `BaseURL` and `ApiKey` through the corresponding properties.
+
 **Contributions**
 
 I welcome any and all suggestions or improvements to the codebase.  Thanks for dropping by and hope you find a good use for this library!
