@@ -1,27 +1,26 @@
-
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
-using Nominatim.API.Web;
 
 namespace Nominatim.API.Geocoders {
     /// <summary>
     ///     Class to enable reverse geocoding (e.g. latitude and longitude to address)
     /// </summary>
     public class ReverseGeocoder : GeocoderBase, IReverseGeocoder {
-        private readonly INominatimWebInterface _nominatimWebInterface;
-        
+
         /// <summary>
         ///     Constructor
         /// </summary>
         /// <param name="nominatimWebInterface">Injected instance of INominatimWebInterface</param>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ReverseGeocoder(INominatimWebInterface nominatimWebInterface, string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/reverse") {
-            _nominatimWebInterface = nominatimWebInterface;
-        }
+        /// <param name="apiKey">API Key, if you are using an Nominatim service that requires one.</param>
+        public ReverseGeocoder(
+            INominatimWebInterface nominatimWebInterface,
+            string URL = @"https://nominatim.openstreetmap.org/reverse",
+            string apiKey = "") : base(nominatimWebInterface, URL, apiKey) { }
 
         /// <summary>
         ///     Attempt to get an address or location from a set of coordinates

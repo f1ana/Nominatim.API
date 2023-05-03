@@ -1,8 +1,14 @@
-﻿namespace Nominatim.API.Geocoders {
+﻿using Nominatim.API.Interfaces;
+
+namespace Nominatim.API.Geocoders {
     public abstract class GeocoderBase {
-        protected GeocoderBase(string URL) {
+        protected GeocoderBase(INominatimWebInterface nominatimWebInterface, string URL, string apiKey = "") {
+            _nominatimWebInterface = nominatimWebInterface;
             url = URL;
+            key = apiKey;
         }
+
+        protected readonly INominatimWebInterface _nominatimWebInterface;
 
         /// <summary>
         /// URL to Nominatim service
@@ -11,10 +17,10 @@
         /// <summary>
         /// API Key, if you are using an Nominatim service that requires one.
         /// </summary>
-        public string key = string.Empty;
+        public string key;
         /// <summary>
         /// Format of response objects.  This library only supports JSON/JSONV2.
         /// </summary>
-        public readonly string format = "jsonv2";
+        public const string format = "jsonv2";
     }
 }
