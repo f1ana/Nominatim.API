@@ -12,7 +12,7 @@ namespace Nominatim.API.Address {
     /// </summary>
     public class AddressSearcher : IAddressSearcher {
         private readonly INominatimWebInterface _nominatimWebInterface;
-        
+
         public readonly string url;
         /// <summary>
         /// API Key, if you are using an Nominatim service that requires one.
