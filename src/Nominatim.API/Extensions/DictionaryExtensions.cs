@@ -8,18 +8,30 @@ namespace Nominatim.API.Extensions
                 return;
             }
 
-            if (value is string str) {
-                if (!str.hasValue()) {
-                    return;
-                }
-            }
+            d.Add(key, value.ToString());
+        }
 
-            if (value is bool b) {
-                d.Add(key, b ? "1" : "0");
+        public static void AddIfSet(this Dictionary<string, string> d, string key, string value)
+        {
+            if (!value.hasValue()) {
                 return;
             }
 
             d.Add(key, value.ToString());
+        }
+
+        public static void AddIfSet(this Dictionary<string, string> d, string key, bool? value)
+        {
+            if (value == null) {
+                return;
+            }
+
+            d.AddIfSet(key, value.Value);
+        }
+
+        public static void AddIfSet(this Dictionary<string, string> d, string key, bool value)
+        {
+            d.Add(key, value ? "1" : "0");
         }
     }
 }
