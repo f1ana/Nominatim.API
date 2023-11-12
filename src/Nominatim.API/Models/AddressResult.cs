@@ -54,9 +54,9 @@ namespace Nominatim.API.Models {
         public string Pedestrian { get; set; }
 
         /// <summary>
-        ///     Neighborhood
+        ///     Neighbourhood
         /// </summary>
-        [JsonProperty("neighborhood")]
+        [JsonProperty("neighbourhood")]
         public string Neighborhood { get; set; }
 
         /// <summary>
