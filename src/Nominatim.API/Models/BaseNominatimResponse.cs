@@ -111,6 +111,10 @@ namespace Nominatim.API.Models {
         [JsonProperty("place_rank")]
         public string PlaceRank { get; set; }
 
-
+        /// <summary>
+        /// The name of this element.
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
     }
 }

@@ -100,5 +100,23 @@ namespace Nominatim.API.Models {
         /// </summary>
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        /// <summary>
+        ///     Tourism
+        /// </summary>
+        [JsonProperty("tourism")]
+        public string Tourism { get; set; }
+
+        /// <summary>
+        ///     Municipality
+        /// </summary>
+        [JsonProperty("municipality")]
+        public string Municipality { get; set; }
+
+        /// <summary>
+        ///     Quarter
+        /// </summary>
+        [JsonProperty("quarter")]
+        public string Quarter { get; set; }
     }
 }
