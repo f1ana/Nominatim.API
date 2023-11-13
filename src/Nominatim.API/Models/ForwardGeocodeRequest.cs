@@ -1,4 +1,6 @@
-﻿namespace Nominatim.API.Models {
+﻿using System.Collections.Generic;
+
+namespace Nominatim.API.Models {
     public class ForwardGeocodeRequest : BaseNominatimRequest {
         /// <summary>
         ///     Query string to search for.  Do not combine with any address fields.
@@ -85,5 +87,10 @@
         ///     Output geometry of results as a WKT.
         /// </summary>
         public bool? ShowPolygonText { get; set; }
+
+        /// <summary>
+        ///     Exclude IDs from response
+        /// </summary>
+        public List<long> ExcludeIds { get; set; }
     }
 }

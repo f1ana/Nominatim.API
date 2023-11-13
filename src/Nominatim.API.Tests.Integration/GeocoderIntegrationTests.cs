@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Nominatim.API.Geocoders;
@@ -34,8 +35,28 @@ namespace Nominatim.API.Tests {
                 ShowGeoJSON = true
             });
 
-            Assert.IsTrue(r.Length > 0);
+            Assert.IsTrue(r.Length > 0 && r[0].PlaceID == 4205221);
         }
+
+        [Test]
+        public async Task TestSuccessfulForwardGeocode_ExcludedIds()
+        {
+            var forwardGeocoder = _serviceProvider.GetService<ForwardGeocoder>();
+
+            var r = await forwardGeocoder.Geocode(new ForwardGeocodeRequest
+            {
+                queryString = "1600 Pennsylvania Avenue, Washington, DC",
+
+                BreakdownAddressElements = true,
+                ShowExtraTags = true,
+                ShowAlternativeNames = true,
+                ShowGeoJSON = true,
+                ExcludeIds = new List<long> { 4205221 }
+            });
+
+            Assert.IsTrue(r.Length > 0 && r[0].PlaceID != 4205221);
+        }
+
 
         [Test]
         public async Task TestSuccessfulReverseGeocodeBuilding() {
@@ -70,7 +91,7 @@ namespace Nominatim.API.Tests {
                 ShowGeoJSON = true
             });
 
-            Assert.IsTrue((r3.PlaceID > 0) && (r3.Category == "highway") && (r3.ClassType == "milestone"));
+            Assert.IsTrue((r3.PlaceID > 0) && (r3.Category == "highway") && (r3.ClassType == "motorway"));
         }
     }
 }
