@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Interfaces;
@@ -68,6 +69,8 @@ namespace Nominatim.API.Geocoders {
             c.AddIfSet("polygon_svg", r.ShowSVG);
             c.AddIfSet("polygon_text", r.ShowPolygonText);
             c.AddIfSet("extratags", r.ShowExtraTags);
+
+            c.AddIfSet("exclude_place_ids", (r.ExcludeIds?.Any() ?? false) ? string.Join(",", r.ExcludeIds.Select(x => x.ToString())) : null);
 
             return c;
         }
