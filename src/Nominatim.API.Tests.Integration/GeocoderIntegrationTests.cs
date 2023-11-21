@@ -70,7 +70,7 @@ namespace Nominatim.API.Tests {
                 ShowGeoJSON = true
             });
 
-            Assert.IsTrue((r3.PlaceID > 0) && (r3.Category == "highway") && (r3.ClassType == "milestone"));
+            Assert.IsTrue((r3.PlaceID > 0) && (r3.Category == "highway") && (r3.ClassType == "motorway"));
         }
     }
 }
