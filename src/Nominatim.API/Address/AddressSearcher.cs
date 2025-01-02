@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
-using Nominatim.API.Web;
 
 namespace Nominatim.API.Address {
     /// <summary>
@@ -11,23 +11,26 @@ namespace Nominatim.API.Address {
     /// </summary>
     public class AddressSearcher : IAddressSearcher {
         private readonly INominatimWebInterface _nominatimWebInterface;
-        
-        public string url;
-        //jsonv2 not supported for lookup
-        private readonly string format = "json";
+
+        public readonly string url;
         /// <summary>
         /// API Key, if you are using an Nominatim service that requires one.
         /// </summary>
-        public string key;
+        public readonly string key;
+
+        //jsonv2 not supported for lookup
+        private readonly string format = "json";
 
         /// <summary>
         /// Constructur
         /// </summary>
         /// <param name="nominatimWebInterface">Injected instance of INominatimWebInterface</param>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public AddressSearcher(INominatimWebInterface nominatimWebInterface, string URL = null) {
+        /// <param name="apiKey">API Key, if you are using an Nominatim service that requires one.</param>
+        public AddressSearcher(INominatimWebInterface nominatimWebInterface, string URL = @"https://nominatim.openstreetmap.org/lookup", string apiKey = null) {
             _nominatimWebInterface = nominatimWebInterface;
-            url = URL ?? @"https://nominatim.openstreetmap.org/lookup";
+            url = URL;
+            key = apiKey;
         }
 
         /// <summary>
@@ -50,7 +53,7 @@ namespace Nominatim.API.Address {
             c.AddIfSet("namedetails", r.ShowAlternativeNames);
             c.AddIfSet("extratags", r.ShowExtraTags);
             c.AddIfSet("email", r.EmailAddress);
-            c.AddIfSet("osm_ids", string.Join(",", r.OSMIDs ?? new List<string>()));
+            c.AddIfSet("osm_ids", r.OSMIDs?.Any() == true ? string.Join(",", r.OSMIDs) : null);
 
             return c;
         }

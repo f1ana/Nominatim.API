@@ -14,10 +14,29 @@ namespace Nominatim.API.Web {
     ///     Provides a means of sending HTTP requests to a Nominatim server
     /// </summary>
     public class NominatimWebInterface : INominatimWebInterface {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new PrivateContractResolver()
+        };
 
-        public NominatimWebInterface(IHttpClientFactory httpClientFactory) {
+        private static readonly string _version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly string _httpClientName;
+        private readonly string _productName;
+
+        private readonly ProductInfoHeaderValue _productInfoHeaderValue;
+
+        public NominatimWebInterface(
+            IHttpClientFactory httpClientFactory,
+            string httpClientName = "DefaultNominatimWebInterfaceHttpClient",
+            string productName = "f1ana.Nominatim.API") {
             _httpClientFactory = httpClientFactory;
+            _httpClientName = httpClientName;
+            _productName = productName;
+
+            _productInfoHeaderValue = new ProductInfoHeaderValue(_productName, _version);
         }
         
         /// <summary>
@@ -30,12 +49,13 @@ namespace Nominatim.API.Web {
         public async Task<T> GetRequest<T>(string url, Dictionary<string, string> parameters) {
             var req = addQueryStringToUrl(url, parameters);
 
-            var httpClient = _httpClientFactory.CreateClient();
-            AddUserAgent(httpClient);
-            var result = await httpClient.GetStringAsync(req).ConfigureAwait(false);
-            var settings = new JsonSerializerSettings {ContractResolver = new PrivateContractResolver()};
+            using (var httpClient = _httpClientFactory.CreateClient(_httpClientName))
+            {
+                AddUserAgent(httpClient);
+                var result = await httpClient.GetStringAsync(req).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<T>(result, settings);
+                return JsonConvert.DeserializeObject<T>(result, _jsonSerializerSettings);
+            }
         }
 
         private static string addQueryStringToUrl(string url, IDictionary<string, string> parameters) {
@@ -43,21 +63,21 @@ namespace Nominatim.API.Web {
                 return url;
             }
 
-            var op = url.IndexOf('?') != -1;
+            var op = url.IndexOf('?') != -1 ? '&' : '?';
             var sb = new StringBuilder();
             sb.Append(url);
             foreach (var kvp in parameters) {
-                sb.Append(op ? '&' : '?');
+                sb.Append(op);
                 sb.Append($"{UrlEncoder.Default.Encode(kvp.Key)}={UrlEncoder.Default.Encode(kvp.Value)}");
-                op = true;
+                op = '&';
             }
 
             return sb.ToString();
         }
 
-        private static void AddUserAgent(HttpClient httpClient) {
+        private void AddUserAgent(HttpClient httpClient) {
             httpClient.DefaultRequestHeaders.UserAgent.Clear();
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("f1ana.Nominatim.API", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
+            httpClient.DefaultRequestHeaders.UserAgent.Add(_productInfoHeaderValue);
         }
     }
 }

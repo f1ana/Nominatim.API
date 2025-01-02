@@ -4,23 +4,23 @@ using System.Threading.Tasks;
 using Nominatim.API.Extensions;
 using Nominatim.API.Interfaces;
 using Nominatim.API.Models;
-using Nominatim.API.Web;
 
 namespace Nominatim.API.Geocoders {
     /// <summary>
     ///     Class to enable forward geocoding (e.g.  address to latitude and longitude)
     /// </summary>
     public class ForwardGeocoder : GeocoderBase, IForwardGeocoder {
-        private readonly INominatimWebInterface _nominatimWebInterface;
-        
+
         /// <summary>
         ///     Constructor
         /// </summary>
         /// <param name="nominatimWebInterface">Injected instance of INominatimWebInterface</param>
         /// <param name="URL">URL to Nominatim service.  Defaults to OSM demo site.</param>
-        public ForwardGeocoder(INominatimWebInterface nominatimWebInterface, string URL = null) : base(URL ?? @"https://nominatim.openstreetmap.org/search") {
-            _nominatimWebInterface = nominatimWebInterface;
-        }
+        /// <param name="apiKey">API Key, if you are using an Nominatim service that requires one.</param>
+        public ForwardGeocoder(
+            INominatimWebInterface nominatimWebInterface,
+            string URL = @"https://nominatim.openstreetmap.org/search",
+            string apiKey = "") : base(nominatimWebInterface, URL, apiKey) { }
 
         /// <summary>
         ///     Attempt to get coordinates for a specified query or address.
