@@ -35,7 +35,7 @@ namespace Nominatim.API.Tests {
                 ShowGeoJSON = true
             });
 
-            Assert.IsTrue(r.Length > 0 && r[0].PlaceID == 4205221);
+            Assert.IsTrue(r.Length > 0 && r[0].OSMID == 238241022);
         }
 
         [Test]
@@ -51,10 +51,10 @@ namespace Nominatim.API.Tests {
                 ShowExtraTags = true,
                 ShowAlternativeNames = true,
                 ShowGeoJSON = true,
-                ExcludeIds = new List<long> { 4205221 }
+                ExcludeIds = new List<long> { 321631063 }
             });
 
-            Assert.IsTrue(r.Length > 0 && r[0].PlaceID != 4205221);
+            Assert.IsTrue(r.Length > 0 && r[0].OSMID != 238241022);
         }
 
 
