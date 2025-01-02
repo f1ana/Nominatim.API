@@ -21,8 +21,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      working-directory: src
+      run: dotnet restore Nominatim.API.sln
     - name: Build
-      run: dotnet build --no-restore
+      working-directory: src
+      run: dotnet build Nominatim.API.sln --no-restore 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      working-directory: src
+      run: dotnet test Nominatim.API.sln --no-build --verbosity normal 
