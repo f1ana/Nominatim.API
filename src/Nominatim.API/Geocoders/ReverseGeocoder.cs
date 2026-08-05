@@ -40,8 +40,8 @@ namespace Nominatim.API.Geocoders {
             c.AddIfSet("format", format);
             c.AddIfSet("key", key);
 
-            c.AddIfSet("lat", r.Latitude?.ToString(CultureInfo.InvariantCulture.NumberFormat));
-            c.AddIfSet("lon", r.Longitude?.ToString(CultureInfo.InvariantCulture.NumberFormat));
+            c.AddIfSet("lat", r.Latitude?.ToString("0.0000000",CultureInfo.InvariantCulture.NumberFormat));
+            c.AddIfSet("lon", r.Longitude?.ToString("0.0000000", CultureInfo.InvariantCulture.NumberFormat));
             c.AddIfSet("zoom", r.ZoomLevel);
             c.AddIfSet("addressdetails", r.BreakdownAddressElements);
             c.AddIfSet("namedetails", r.ShowAlternativeNames);
