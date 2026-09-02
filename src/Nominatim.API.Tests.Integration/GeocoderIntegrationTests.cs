@@ -35,7 +35,7 @@ namespace Nominatim.API.Tests {
                 ShowGeoJSON = true
             });
 
-            Assert.IsTrue(r.Length > 0 && r[0].OSMID == 238241022);
+            Assert.IsTrue(r.Length > 0 && r[0].OSMID == 19761182);
         }
 
         [Test]
