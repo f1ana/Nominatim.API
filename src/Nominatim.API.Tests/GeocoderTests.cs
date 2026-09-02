@@ -6,12 +6,12 @@ using Nominatim.API.Tests.Helpers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Nominatim.API.Tests; 
+namespace Nominatim.API.Tests;
 
 [TestFixture]
 public class GeocoderTests {
     // Thank you to knom for designing these tests
-    
+
     [Test]
     public async Task ForwardGeocoderTests_SuccessfulForwardGeocode() {
         // arrange
@@ -30,7 +30,7 @@ public class GeocoderTests {
             { "q", geocodeRequest.queryString },
             { "addressdetails", "1" },
             { "namedetails", "1" },
-            { "polygon_geojson", "1"},
+            { "polygon_geojson", "1" },
             { "extratags", "1" },
         };
         
@@ -72,7 +72,7 @@ public class GeocoderTests {
             { "lon", $"{reverseGeocodeRequest.Longitude}" },
             { "addressdetails", "1" },
             { "namedetails", "1" },
-            { "polygon_geojson", "1"},
+            { "polygon_geojson", "1" },
             { "extratags", "1" },
         };
         nominatimWebInterface
@@ -86,5 +86,50 @@ public class GeocoderTests {
         
         // assert
         Assert.AreEqual(159859857, r.PlaceID);
+    }
+
+    [Test]
+    public async Task ReverseGeocoderTests_CoordinatesNearPrimeMeridian_DoesNotUseScientificNotation()
+    {
+        // arrange
+        var baseUrl = @"https://nominatim.openstreetmap.org/reverse";
+        var responseJson =
+            "{\"place_id\":281448716,\"licence\":\"Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\",\"osm_type\":\"way\",\"osm_id\":535264025,\"lat\":\"51.5026215\",\"lon\":\"-0.0001157\",\"category\":\"amenity\",\"type\":\"conference_centre\",\"place_rank\":30,\"importance\":9.307927061870783e-05,\"addresstype\":\"amenity\",\"name\":\"Arora Ballroom & Conference Centre\",\"display_name\":\"Arora Ballroom & Conference Centre, Blackwall Tunnel, Blackwall Reach, Greenwich Peninsula, Royal Borough of Greenwich, Greater London, England, E14 9PB, United Kingdom\",\"address\":{\"amenity\":\"Arora Ballroom & Conference Centre\",\"road\":\"Blackwall Tunnel\",\"residential\":\"Blackwall Reach\",\"suburb\":\"Greenwich Peninsula\",\"city_district\":\"Royal Borough of Greenwich\",\"ISO3166-2-lvl8\":\"GB-GRE\",\"city\":\"Greater London\",\"state\":\"England\",\"ISO3166-2-lvl4\":\"GB-ENG\",\"postcode\":\"E14 9PB\",\"country\":\"United Kingdom\",\"country_code\":\"gb\"},\"boundingbox\":[\"51.5022562\",\"51.5030757\",\"-0.0006406\",\"0.0004244\"]}";
+        var reverseGeocodeRequest = new ReverseGeocodeRequest
+        {
+            // Coordinate near the Prime Meridian (Greenwich, London).
+            // Longitude is close enough to zero to be serialized in scientific
+            // notation (e.g. "9.3E-06") by a naive double.ToString() call.
+            Latitude = 51.5028298,
+            Longitude = 0.0000093,
+
+            BreakdownAddressElements = true,
+            ShowExtraTags = true,
+            ShowAlternativeNames = true,
+            ShowGeoJSON = true
+        };
+        var nominatimWebInterface = Substitute.For<INominatimWebInterface>();
+        var reverseGeocoder = new ReverseGeocoder(nominatimWebInterface);
+        var expectedDict = new Dictionary<string, string>
+        {
+            { "format", "jsonv2" },
+            { "lat", "51.5028298" },
+            { "lon", "0.0000093" },
+            { "addressdetails", "1" },
+            { "namedetails", "1" },
+            { "polygon_geojson", "1" },
+            { "extratags", "1" },
+        };
+        nominatimWebInterface
+            .GetRequest<GeocodeResponse>(
+                Arg.Is(baseUrl),
+                Arg.Is<Dictionary<string, string>>(x => x.IsEquivalentTo(expectedDict)))
+            .Returns(JsonConvert.DeserializeObject<GeocodeResponse>(responseJson));
+
+        // act
+        var r = await reverseGeocoder.ReverseGeocode(reverseGeocodeRequest);
+
+        // assert
+        Assert.AreEqual(281448716, r.PlaceID);
     }
 }
