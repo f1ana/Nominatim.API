@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="../../Version.props" />
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christopher Flanagan</Authors>
@@ -8,11 +8,7 @@
     <PackageProjectUrl>https://github.com/f1ana/Nominatim.API</PackageProjectUrl>
     <RepositoryUrl>https://github.com/f1ana/Nominatim.API</RepositoryUrl>
     <PackageTags>nominatim, osm, geocode, geocoding</PackageTags>
-    <Version>2.1.0</Version>
     <PackageLicenseUrl>https://github.com/f1ana/Nominatim.API/blob/master/LICENSE</PackageLicenseUrl>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
-    <PackageVersion>2.1.0</PackageVersion>
     <TargetFrameworks>net8.0;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
